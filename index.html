@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- //浏览器支持es6语法，所以这里可以写type module，但是上production不要这样写，（实际上打包之后vite会给你把module拿掉，转为es5兼容的语法，所以你不用担心），因为不能保证所有浏览器都支持es6语法 -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
