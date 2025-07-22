@@ -1,0 +1,115 @@
+# https://editorconfig.org
+# 这个root代表这个文件是EditorConfig的根配置文件，子目录下的EditorConfig文件会被忽略。
+root = true
+
+# 对所有文件都生效
+[*]
+# 文件格式
+charset = utf-8
+# 代表使用空格进行缩进
+indent_style = space
+# 缩进大小为2个空格，如果不添加的话，默认是4个空格
+indent_size = 2
+# 换行符使用LF
+end_of_line = lf
+# 在文件末尾插入一个换行符
+insert_final_newline = true
+# 删除行尾的空格
+trim_trailing_whitespace = true
+
+【*.md]
+# 对所有的Markdown文件生效
+# 使用空格进行缩进
+indent_style = space
+# 缩进大小为4个空格
+indent_size = 4
+# 换行符使用CRLF
+end_of_line = crlf
+# 在文件末尾插入一个换行符
+insert_final_newline = true
+# 删除行尾的空格
+trim_trailing_whitespace = true
+# 对所有的JSON文件生效
+[*.json]
+# 使用空格进行缩进
+indent_style = space
+# 缩进大小为2个空格
+indent_size = 2
+# 换行符使用LF
+end_of_line = lf
+# 在文件末尾插入一个换行符
+insert_final_newline = true
+# 删除行尾的空格
+trim_trailing_whitespace = true
+# 对所有的JavaScript文件生效
+[*.js]
+# 使用空格进行缩进
+indent_style = space
+# 缩进大小为2个空格
+indent_size = 2
+# 换行符使用LF
+end_of_line = lf
+# 在文件末尾插入一个换行符
+insert_final_newline = true
+# 删除行尾的空格
+trim_trailing_whitespace = true
+# 对所有的CSS文件生效
+[*.css]
+# 使用空格进行缩进
+indent_style = space
+# 缩进大小为2个空格
+indent_size = 2
+# 换行符使用LF
+end_of_line = lf
+# 在文件末尾插入一个换行符
+insert_final_newline = true
+# 删除行尾的空格
+trim_trailing_whitespace = true
+# 对所有的HTML文件生效
+[*.html]
+# 使用空格进行缩进
+indent_style = space
+# 缩进大小为2个空格
+indent_size = 2
+# 换行符使用LF
+end_of_line = lf
+# 在文件末尾插入一个换行符
+insert_final_newline = true
+# 删除行尾的空格
+trim_trailing_whitespace = true
+# 对所有的YAML文件生效
+[*.yaml]
+# 使用空格进行缩进
+indent_style = space
+# 缩进大小为2个空格
+indent_size = 2
+# 换行符使用LF
+end_of_line = lf
+# 在文件末尾插入一个换行符
+insert_final_newline = true
+# 删除行尾的空格
+trim_trailing_whitespace = true
+# 对所有的TypeScript文件生效
+[*.ts]
+# 使用空格进行缩进
+indent_style = space
+# 缩进大小为2个空格
+indent_size = 2
+# 换行符使用LF
+end_of_line = lf
+# 在文件末尾插入一个换行符
+insert_final_newline = true
+# 删除行尾的空格
+trim_trailing_whitespace = true
+# 对所有的TypeScript React文件生效
+[*.tsx]
+# 使用空格进行缩进
+indent_style = space
+# 缩进大小为2个空格
+indent_size = 2
+# 换行符使用LF
+end_of_line = lf
+# 在文件末尾插入一个换行符
+insert_final_newline = true
+# 删除行尾的空格
+trim_trailing_whitespace = true
