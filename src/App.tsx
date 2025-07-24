@@ -2,32 +2,30 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { NavLink, useNavigate } from 'react-router'
 
 function App() {
   const [count, setCount] = useState(0)
-
+  // useNavigate必须在函数组建里面，不可以在外面，也不可以在if里面，而且在函数组建上层定义
+  const navigate = useNavigate()
+  const handleClick = () => {
+    // 编程方式动态跳转
+    navigate('/react')
+  }
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
+        <NavLink to='/vite'>
           <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
+        </NavLink>
+        <NavLink to={'/react'}>
           <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        </NavLink>
       </div>
       <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div className='card'>
+        <button onClick={handleClick}>点击跳转</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
