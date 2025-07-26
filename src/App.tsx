@@ -1,33 +1,17 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { NavLink, useNavigate } from 'react-router'
+import { BrowserRouter, NavLink, RouterProvider, useNavigate } from 'react-router'
+import Router from './router'
 
 function App() {
-  const [count, setCount] = useState(0)
-  // useNavigate必须在函数组建里面，不可以在外面，也不可以在if里面，而且在函数组建上层定义
-  const navigate = useNavigate()
-  const handleClick = () => {
-    // 编程方式动态跳转
-    navigate('/react')
-  }
+  //通过路由组件定义路由
   return (
-    <>
-      <div>
-        <NavLink to='/vite'>
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </NavLink>
-        <NavLink to={'/react'}>
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </NavLink>
-      </div>
-      <h1>Vite + React</h1>
-      <div className='card'>
-        <button onClick={handleClick}>点击跳转</button>
-      </div>
-    </>
+    <BrowserRouter>
+      <Router/>
+    </BrowserRouter>
   )
+  //这种称之为api路由， 推荐使用api路由，因为可以使用loader action等复杂的功能
+  // return <RouterProvider router={rootrouter}/>
 }
 
 export default App

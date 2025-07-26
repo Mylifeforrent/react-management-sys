@@ -9,7 +9,12 @@
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
       "isolatedModules": true,
-      "resolveJsonModule": true
+      "resolveJsonModule": true,
+      "baseUrl": "./",
+      "paths": {
+        "@/*": ["src/*"],
+        "react-management-sys/*": ["src/*"]
+      }
     },
     "include": ["src"],
     "exclude": ["node_modules", "dist"]
