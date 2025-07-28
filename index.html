@@ -8,6 +8,9 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- 第二种方式，直接html添加loading的div，使用时直接获取这个div的id即可 -->
+    <!-- 这种方式是为了在页面加载时显示loading，等页面加载完成后，在通过document.body.removechild移除就可以了，但是移除之后就没有了，不够灵活，下次还要使用就尴尬了，所以一般使用动态添加div的方式，而不是直接写死，这个方式不推荐-->
+    <!-- <div id="loading"></div> -->
     <!-- //浏览器支持es6语法，所以这里可以写type module，但是上production不要这样写，（实际上打包之后vite会给你把module拿掉，转为es5兼容的语法，所以你不用担心），因为不能保证所有浏览器都支持es6语法 -->
     <script type="module" src="/src/main.tsx"></script>
   </body>

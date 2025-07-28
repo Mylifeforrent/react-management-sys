@@ -21,11 +21,11 @@ export default defineConfig({
     open: true, // 启动后自动打开浏览器
     proxy: {
       // 代理 API 请求，解决本地开发跨域问题
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, ''),
-      },
+      // '/api': {
+      //   target: 'http://localhost:3000',
+      //   changeOrigin: true,
+      //   rewrite: path => path.replace(/^\/api/, ''),
+      // },
     },
   },
 

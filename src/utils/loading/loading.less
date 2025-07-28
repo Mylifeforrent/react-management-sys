@@ -1,0 +1,22 @@
+// 定义加载动画容器的ID选择器
+#loading {
+  // 固定定位：使容器脱离文档流，相对于视口定位
+  position: fixed;
+  // 定位坐标：上、左、下、右均为0，使容器覆盖整个视口
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  // 宽度和高度均为100%，确保容器填满视口
+  width: 100%;
+  height: 100%;
+  // 使用Flex布局
+  display: flex;
+  // 水平居中对齐子元素
+  justify-content: center;
+  // 垂直居中对齐子元素
+  align-items: center;
+  // 设置字体大小为20px
+  font-size: 20px;
+}
+
