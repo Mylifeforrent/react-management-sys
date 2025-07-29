@@ -5,13 +5,11 @@ import { showLoading } from "@/utils/loading";
 export default function Login() {
 
   useEffect(() => {
-
-    request.get('/users', {
-      params: {
-        id: 12345
-      }
+    //main.tsx 下如果打开了react.strictMode ,那就是开发者模式，会打印多次请求信息，一般是2次
+    request.post<string>('/users', {
+      id: 12345
     }).then(response => {
-      console.log("User data fetched successfully:", response.data);
+      console.log("User data fetched successfully:", response);
     }).catch(error => {
       console.error("Error fetching user data:", error);
     });

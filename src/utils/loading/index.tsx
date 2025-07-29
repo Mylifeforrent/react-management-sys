@@ -21,7 +21,7 @@ export const hideLoading = () => {
   }
   count--
   if (count === 0) {
-    // 安全删除元素
+    // 安全删除元素 ，y
     const element = document.getElementById('loading')
     if (element && element.parentNode === document.body) {
       document.body.removeChild(element)
