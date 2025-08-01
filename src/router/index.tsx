@@ -12,10 +12,10 @@ import { createBrowserRouter, createHashRouter, Navigate, useRoutes } from "reac
 //         "@/*": ["src/*"],
 //         "react-management-sys/*": ["src/*"]。这个应该没关系
 //       }
-import Login from "@/views/Login";
-import Welcome from "@/views/Welcome";
-import Error404 from "@/views/Error404";
-import Error403 from "@/views/Error403";
+import Login from "@/views/login";
+import Welcome from "@/views/welcome";
+import Error404 from "@/views/error404";
+import Error403 from "@/views/error403";
 
 
 const routerPath = [

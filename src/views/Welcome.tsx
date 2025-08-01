@@ -12,7 +12,7 @@ const handleClick = () => {
   // 修复后：添加空对象作为第二个参数，表示没有查询参数
   request.get("/api/test", {});
 }
-
+console.log(import.meta.env)
 /**
  * 欢迎页面组件
  * 包含一个测试按钮，用于验证 API 请求功能

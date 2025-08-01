@@ -2,12 +2,14 @@
 import { message } from 'antd' // Ant Design 的消息提示组件
 import axios, { AxiosError } from 'axios' // HTTP 请求库和错误类型
 import { hideLoading, showLoading } from './loading' // 自定义的加载状态管理工具
+import storage from './storage'
 
 /**
  * 创建 axios 实例
  * 统一配置请求的基础参数
  */
 const instance = axios.create({
+  baseURL: import.meta.env.VITE_APP_BASE_URL,
   timeout: 8000, // 请求超时时间：8秒
   timeoutErrorMessage: '请求超时，请稍后再试', // 超时错误提示信息
   withCredentials: true, // 允许跨域请求携带凭证（如 cookies）
@@ -27,10 +29,15 @@ instance.interceptors.request.use(
 
     // 自动添加用户认证 token
     // 从本地存储中获取用户登录凭证
-    const token = localStorage.getItem('token')
+    const token = storage.get('token')
     if (token) {
       // 如果存在 token，则添加到请求头的 Authorization 字段
       config.headers.Authorization = 'Token ' + token
+    }
+    if (import.meta.env.VITE_APP_MOCK === 'true') {
+      config.baseURL = import.meta.env.VITE_APP_MOCK_API
+    } else {
+      config.baseURL = import.meta.env.VITE_APP_BASE_URL
     }
 
     // 返回处理后的配置对象
