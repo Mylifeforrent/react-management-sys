@@ -12,7 +12,7 @@ import { createBrowserRouter, createHashRouter, Navigate, useRoutes } from "reac
 //         "@/*": ["src/*"],
 //         "react-management-sys/*": ["src/*"]。这个应该没关系
 //       }
-import Login from "@/views/login";
+import Login from "@/views/login/index";
 import Welcome from "@/views/welcome";
 import Error404 from "@/views/error404";
 import Error403 from "@/views/error403";

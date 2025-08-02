@@ -1,3 +1,4 @@
+import { formatMoney, toLocalDate } from "@/utils/intdex";
 import { showLoading } from "@/utils/loading";
 import request from '@/utils/request'
 import { Button } from "antd";
@@ -11,6 +12,9 @@ const handleClick = () => {
   // 修复前：request.get("/api/test"); // 缺少第二个参数
   // 修复后：添加空对象作为第二个参数，表示没有查询参数
   request.get("/api/test", {});
+
+  console.log('formatmoney test' + formatMoney(1234512452))
+  console.log('current date time:' + toLocalDate())
 }
 console.log(import.meta.env)
 /**

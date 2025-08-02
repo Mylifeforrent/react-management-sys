@@ -3,3 +3,22 @@
   margin-top: 200px;
   text-align: center;
 }
+
+/* 全局样式重置 - 这是一个非常重要的CSS重置规则 */
+*{
+  /* 清除所有元素的内边距
+     padding是元素内容与边框之间的空白区域
+     浏览器默认会给很多元素添加内边距，这里统一清零 */
+  padding: 0;
+
+  /* 清除所有元素的外边距
+     margin是元素与其他元素之间的空白区域
+     浏览器默认会给很多元素添加外边距，这里统一清零 */
+  margin: 0;
+
+  /* 设置盒模型为border-box
+     这意味着元素的宽度和高度包括了padding和border
+     默认情况下是content-box，宽高只包括内容区域
+     使用border-box可以让布局更容易控制 */
+  box-sizing: border-box;
+}
