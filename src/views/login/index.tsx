@@ -16,7 +16,7 @@ export default function Login() {
   return (
     <div className={styles.login}>
         <div className={styles.loginWrapper}>
-          <div className={styles.title}>系统登录</div>
+          <div className='title'>系统登录</div>
           <Form name='basic' initialValues={{ remember: true }} onFinish={onFinish} autoComplete='off'>
             <Form.Item name='userName' rules={[{ required: true, message: 'Please input your username!' }]}>
               <Input />

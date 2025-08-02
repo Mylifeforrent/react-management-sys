@@ -41,11 +41,12 @@ const routerPath = [
   }
 ]
 
-export default function Router() {
-  return useRoutes(routerPath);
-}
+// export default function Router() {
+//   return useRoutes(routerPath);
+// }
 
-// const rootrouter = createBrowserRouter(router)
+const rootrouter = createBrowserRouter(routerPath)
 
-// export default {rootrouter, Router};
+export default rootrouter;
+// export default {rootrouter};
 // export default { Router};
