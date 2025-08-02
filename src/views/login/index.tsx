@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import request from "@/utils/request";
 import axios from "axios";
 import { showLoading } from "@/utils/loading";
-import './index.less'
+import styles from './index.module.less'
 import { Button, Form, Input } from "antd";
 
 
@@ -14,9 +14,9 @@ export default function Login() {
   const loading = false;
 
   return (
-    <div className="login">
-        <div className="login-wrapper">
-          <div className='title'>系统登录</div>
+    <div className={styles.login}>
+        <div className={styles.loginWrapper}>
+          <div className={styles.title}>系统登录</div>
           <Form name='basic' initialValues={{ remember: true }} onFinish={onFinish} autoComplete='off'>
             <Form.Item name='userName' rules={[{ required: true, message: 'Please input your username!' }]}>
               <Input />
