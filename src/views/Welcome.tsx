@@ -1,4 +1,4 @@
-import { formatMoney, toLocalDate } from "@/utils/intdex";
+import { formatMoney, toLocalDate } from "@/utils";
 import { showLoading } from "@/utils/loading";
 import request from '@/utils/request'
 import { Button } from "antd";

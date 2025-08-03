@@ -3,6 +3,7 @@ import { message } from 'antd' // Ant Design 的消息提示组件
 import axios, { AxiosError } from 'axios' // HTTP 请求库和错误类型
 import { hideLoading, showLoading } from './loading' // 自定义的加载状态管理工具
 import storage from './storage'
+import { IResponse } from '@/types/api'
 
 /**
  * 创建 axios 实例
@@ -28,25 +29,23 @@ instance.interceptors.request.use(
     showLoading()
 
     // 自动添加用户认证 token
-    // 从本地存储中获取用户登录凭证
+    // config.headers.icode = 'xxx'
     const token = storage.get('token')
     if (token) {
       // 如果存在 token，则添加到请求头的 Authorization 字段
-      config.headers.Authorization = 'Token ' + token
-    }
-    if (import.meta.env.VITE_APP_MOCK === 'true') {
-      config.baseURL = import.meta.env.VITE_APP_MOCK_API
-    } else {
-      config.baseURL = import.meta.env.VITE_APP_BASE_URL
+      config.headers.Authorization = 'Token:: ' + token
     }
 
+    // 设置请求基础URL
+    config.baseURL = import.meta.env.VITE_APP_BASE_URL
+
     // 返回处理后的配置对象
-    return {
-      ...config
-    }
+    return config
   },
-  (error: AxiosError) => {
+  error => {
     // 请求配置出错时的处理
+    console.log('请求配置出错：', error)
+    hideLoading()
     return Promise.reject(error)
   }
 )
@@ -60,34 +59,87 @@ instance.interceptors.response.use(
     // 隐藏全局加载状态
     hideLoading()
 
-    // 获取响应数据
-    const data = response.data
+    // 处理响应数据
+    return handleResponseData(response)
+  },
+  (error: AxiosError) => {
+    // 隐藏加载状态
+    hideLoading()
 
-    // 特殊处理：如果是文件下载请求（blob 类型），直接返回响应对象
-    if (response.config.responseType === 'blob') return response
+    console.log('请求失败:', error.message)
 
-    // 业务错误处理
-    if (data.code === 500001) {
-      // 认证失败：token 过期或无效
-      message.error(data.msg) // 显示错误消息
-      localStorage.removeItem('token') // 清除本地 token
-      // location.href = '/login' // 重定向到登录页面
-    } else if (data.code !== 0) {
-      // 其他业务错误：接口返回非成功状态码
-      message.error(data.msg) // 显示错误消息
-      return Promise.reject(data) // 抛出错误，让调用方处理
+    // 处理不同类型的错误
+    let errorMessage = '请求失败'
+    
+    if (error.response) {
+      // 服务器返回了错误状态码
+      const status = error.response.status
+      switch (status) {
+        case 401:
+          errorMessage = '未授权，请重新登录'
+          localStorage.removeItem('token')
+          // 可以在这里跳转到登录页
+          break
+        case 403:
+          errorMessage = '拒绝访问'
+          break
+        case 404:
+          errorMessage = '请求的资源不存在'
+          break
+        case 500:
+          errorMessage = '服务器内部错误'
+          break
+        default:
+          errorMessage = `请求失败 (${status})`
+      }
+    } else if (error.request) {
+      // 请求已发出但没有收到响应
+      errorMessage = '网络连接失败，请检查网络'
+    } else {
+      // 其他错误
+      errorMessage = error.message || '请求配置错误'
     }
 
-    // 请求成功：返回业务数据部分
-    return data.data
-  },
-  (error) => {
-    // 网络错误或其他异常处理
-    hideLoading() // 隐藏加载状态
-    message.error(error.message) // 显示错误消息
-    return Promise.reject(error.message) // 抛出错误信息
+    message.error(errorMessage)
+    return Promise.reject(error)
   }
 )
+
+/**
+ * 统一处理响应数据的函数
+ * @param response axios响应对象
+ * @returns 处理后的数据
+ */
+function handleResponseData(response: any) {
+  console.log('handleResponseData response:', response)
+  
+  // 获取响应数据
+  const data = response.data
+
+  // 特殊处理：如果是文件下载请求（blob 类型），直接返回响应对象
+  if (response.config.responseType === 'blob') return response
+
+  // 业务错误处理
+  if (data.code === 500001) {
+    // 认证失败：token 过期或无效
+    message.error(data.msg || data.message)
+    localStorage.removeItem('token')
+    // 可以在这里跳转到登录页
+    return Promise.reject(data)
+  } else if (data.code === 200 || data.status === 'success') {
+    console.log("response data:", data)
+    // 成功响应，返回数据部分
+    return data.data || data
+  } else if (data.code !== 0 && data.code !== 200) {
+    // 其他业务错误
+    console.log("error data:", data)
+    message.error(data.msg || data.message || '请求失败')
+    return Promise.reject(data)
+  }
+
+  // 默认返回数据
+  return data.data || data
+}
 
 /**
  * 导出封装好的请求方法

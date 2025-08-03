@@ -9,7 +9,7 @@ function App() {
   return (
     <ConfigProvider theme={{
       token: {
-        colorPrimary: '#1890ff',
+        colorPrimary: '#1DA57A',
       }
     }} >
       <RouterProvider router={rootrouter}/>

@@ -5,7 +5,6 @@ export default function Loading({tip = 'loading'}: {tip?:string}) {
   return (
     <div className="loading-container">
       <svg
-        t="1753746900706"
         className="loading-icon"
         viewBox="0 0 1024 1024"
         version="1.1"

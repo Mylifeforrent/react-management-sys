@@ -11,7 +11,7 @@ export const showLoading = () => {
     loading.setAttribute('id', 'loading')
     document.body.appendChild(loading)
     ReactDom.createRoot(loading!).render(<Loading />)
-    console.log('loading', loading)
+    console.log('show loading from loading index.tsx', loading)
   }
 }
 
