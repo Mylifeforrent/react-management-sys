@@ -1,5 +1,6 @@
 // 导入依赖模块
-import { message } from 'antd' // Ant Design 的消息提示组件
+// import { message } from 'antd' // Ant Design 的消息提示组件
+import {message} from './AntdGlobal'
 import axios, { AxiosError } from 'axios' // HTTP 请求库和错误类型
 import { hideLoading, showLoading } from './loading' // 自定义的加载状态管理工具
 import storage from './storage'
@@ -26,7 +27,9 @@ const instance = axios.create({
 instance.interceptors.request.use(
   config => {
     // 显示全局加载状态
-    showLoading()
+    if (config.showLoading) {
+      showLoading() 
+    }
 
     // 自动添加用户认证 token
     // config.headers.icode = 'xxx'
@@ -58,7 +61,6 @@ instance.interceptors.response.use(
   response => {
     // 隐藏全局加载状态
     hideLoading()
-
     // 处理响应数据
     return handleResponseData(response)
   },
@@ -99,7 +101,6 @@ instance.interceptors.response.use(
       // 其他错误
       errorMessage = error.message || '请求配置错误'
     }
-
     message.error(errorMessage)
     return Promise.reject(error)
   }
@@ -141,6 +142,12 @@ function handleResponseData(response: any) {
   return data.data || data
 }
 
+
+interface IConfig {
+  showLoading?: boolean,
+  showError?: boolean
+}
+
 /**
  * 导出封装好的请求方法
  * 提供统一的 API 调用接口
@@ -152,8 +159,8 @@ export default {
    * @param params 查询参数对象
    * @returns Promise<any> 返回处理后的响应数据
    */
-  get<T>(url: string, params: any): Promise<T>{
-    return instance.get(url, { params })
+  get<T>(url: string, params: any, options: IConfig = { showLoading: true, showError: true }): Promise<T>{
+    return instance.get(url, { params, ...options})
   },
 
   /**
@@ -162,7 +169,8 @@ export default {
    * @param params 请求体数据
    * @returns Promise<any> 返回处理后的响应数据
    */
-  post<T>(url: string, params: any): Promise<T>{
-    return instance.post(url, params)
+  post<T>(url: string, params: any, options: IConfig = {showLoading: true, showError: true}): Promise<T>{
+    return instance.post(url, params, options)
   }
+
 }

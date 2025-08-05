@@ -2,7 +2,8 @@ import { useState } from 'react'
 import './App.css'
 import { BrowserRouter, NavLink, RouterProvider, useNavigate } from 'react-router'
 import rootrouter from '@/router'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider,App as AntdApp } from 'antd'
+import AntdGlobal from './utils/AntdGlobal'
 
 function App() {
   //通过路由组件定义路由
@@ -12,7 +13,10 @@ function App() {
         colorPrimary: '#1DA57A',
       }
     }} >
-      <RouterProvider router={rootrouter}/>
+      <AntdApp>
+        <AntdGlobal/>
+        <RouterProvider router={rootrouter}/>
+      </AntdApp>
     </ConfigProvider>
     // <BrowserRouter>
     //   <Router/>

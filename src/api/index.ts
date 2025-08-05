@@ -11,8 +11,8 @@ const loginAPI = {
    * @param params 登录参数（用户名和密码）
    * @returns Promise 返回登录结果
    */
-  login: (params: LoginType.params) => {
-    return request.post('/auth/login', params)
+  login: (params: LoginType.params): Promise<LoginType.LoginResponseData> => {
+    return request.post('/auth/login', params,{showLoading: false})
   }
 }
 
