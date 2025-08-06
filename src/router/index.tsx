@@ -16,12 +16,20 @@ import Login from "@/views/login/index";
 import Welcome from "@/views/welcome";
 import Error404 from "@/views/error404";
 import Error403 from "@/views/error403";
+import MainLayout from "@/layout";
+import { Children } from "react";
 
 
 const routerPath = [
   {
     path: "/",
-    element: <Welcome/>,
+    element: <Navigate to="/welcome" />
+  },
+  {
+    element: <MainLayout/>,
+    children: [
+      { path: "/welcome", element: <Welcome /> },
+    ]
   },
   {
     path: "/login",
