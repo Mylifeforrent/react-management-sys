@@ -2,6 +2,7 @@ import { formatMoney, toLocalDate } from "@/utils";
 import { showLoading } from "@/utils/loading";
 import request from '@/utils/request'
 import { Button } from "antd";
+import styles from "./index.module.less"
 
 /**
  * 处理测试按钮点击事件
@@ -23,10 +24,15 @@ console.log(import.meta.env)
  */
 export default function Welcome() {
   return (
-    <div className="welcome">
-      welcome
-      <div>
-        <Button onClick={handleClick}>测试</Button>
+    //每一个页面定义一个根class，也就是根div进行包裹，保证不污染
+    <div className={styles.welcome}>
+      <div className={styles.content}>
+        <div className={styles.subTitle}>Welcome</div>
+        <div className={styles.title}>React18 General Management Sys</div>
+        <div className={styles.desc}>React18+ReactRouter6.0+AntD5.4+TypeScript5.0+Vite</div>
+      </div>
+      <div className={styles.img}>
+
       </div>
     </div>
   );

@@ -1,0 +1,33 @@
+.welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  background-color: white;//背景色白色，更好看，让文字图片融入一个背景里面
+  border-radius: 5px;//给边框添加一点点圆角，别那么方
+  height: calc(100vh - 50px - 60px - 40px - 20px);
+  //减去头部50，底部60，大概的高度就出来了，就可以页面撑满, 再减去content部分padding 40px,减去footer的margin-top 20px
+}
+
+.content {
+  position: relative;
+  bottom: 40px;
+  .subTitle{
+    font-size: 30px;
+    line-height: 42px;
+    color: #000;
+  }
+  .title {
+    font-size: 40px;
+    line-height: 62px;
+    color: red;
+  }
+}
+
+.img {
+  background: url('/imgs/welcome-bg.png') no-repeat;//图片不重复堆叠
+  background-size: contain;
+  width: 370px;
+  height: 320px;
+  margin-left: 100px;
+}

@@ -2,6 +2,10 @@ import React from 'react';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme, Watermark } from 'antd';
 import NavHeader from '@/components/NavHeader';
+import NavFooter from '@/components/NavFooter';
+import SideMenu from '@/components/Menu';
+import { Outlet } from 'react-router-dom';
+import styles from "./index.module.less"
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -21,18 +25,10 @@ const App: React.FC = () => {
   return (
     <Watermark content='test water mark'>
     <Layout>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-      >
+      <Sider theme='dark'>
         <div className="demo-logo-vertical" />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
+        {/* <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} /> */}
+        <SideMenu/>
       </Sider>
       <Layout>
         {/* 这种写法要注意框架的header组件高度如果和自己定义的navheader高度不一样，样式就不能很好的对其。所以要么把header组件style高度设置一下保持和navheader一样，要么把navheader组件高度设置和
@@ -42,21 +38,19 @@ const App: React.FC = () => {
         </Header> */}
           <NavHeader />
         {/* header */}
-        <Content style={{ margin: '24px 16px 0' }}>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            content
+        {/* <Content style={{ margin: '24px 16px 0' }}> 如果这里使用了margin，那么welcome页面那里高度除了减去header，footer之外，还要剪去margin的高度 */}
+        <Content className={styles.content}>
+          {/* 内容区域称作wrapper，所以这里搞一个wrapper保存内容的 */}
+          <div className={styles.wrapper}>
+            <Outlet></Outlet>
+
           </div>
+          <NavFooter/>
+          {/* footer当作内容区域一起放进去，这样内容区域高度welcome页面那里height需要减去这个footer的高度才可以 */}
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
+        {/* <Footer style={{ textAlign: 'center' }}>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
+        </Footer> */}
       </Layout>
     </Layout>
     </Watermark>
