@@ -1,4 +1,4 @@
-import { LoginType } from "@/types/api"
+import { LoginType, User } from "@/types/api"
 import request from "@/utils/request"
 
 /**
@@ -13,6 +13,9 @@ const loginAPI = {
    */
   login: (params: LoginType.params): Promise<LoginType.LoginResponseData> => {
     return request.post('/auth/login', params,{showLoading: false})
+  },
+  getUserInfo() {
+    return request.get<User.UserItem>("/users/getUserInfo",{})
   }
 }
 

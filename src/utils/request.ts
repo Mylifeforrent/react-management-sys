@@ -36,7 +36,7 @@ instance.interceptors.request.use(
     const token = storage.get('token')
     if (token) {
       // 如果存在 token，则添加到请求头的 Authorization 字段
-      config.headers.Authorization = 'Token:: ' + token
+      config.headers.Authorization = 'Bearer ' + token
     }
 
     // 设置请求基础URL
@@ -80,7 +80,8 @@ instance.interceptors.response.use(
         case 401:
           errorMessage = '未授权，请重新登录'
           localStorage.removeItem('token')
-          // 可以在这里跳转到登录页
+          // 跳转到登录页面 - 使用简单的window.location方式
+          // window.location.href = '/login'
           break
         case 403:
           errorMessage = '拒绝访问'
@@ -125,7 +126,8 @@ function handleResponseData(response: any) {
     // 认证失败：token 过期或无效
     message.error(data.msg || data.message)
     localStorage.removeItem('token')
-    // 可以在这里跳转到登录页
+    // 跳转到登录页面 - 使用简单的window.location方式
+    window.location.href = '/login'
     return Promise.reject(data)
   } else if (data.code === 200 || data.status === 'success') {
     console.log("response data:", data)

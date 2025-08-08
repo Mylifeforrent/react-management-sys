@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme, Watermark } from 'antd';
 import NavHeader from '@/components/NavHeader';
@@ -6,6 +6,8 @@ import NavFooter from '@/components/NavFooter';
 import SideMenu from '@/components/Menu';
 import { Outlet } from 'react-router-dom';
 import styles from "./index.module.less"
+import api from '@/api'
+import storage from '@/utils/storage';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -21,6 +23,18 @@ const App: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  // 这样单独定义一下才可以在useeffect里面getpromiase，不然直接
+  //在useeffect使用api。getuserinfo是会报错的，没办法使用promise语法
+  const getUserInfo = async () => {
+    const data = await api.getUserInfo(); 
+    storage.set("userinfo" ,data)
+    console.log("userInfo:" + data);
+  };
+
+  useEffect(() => {
+    getUserInfo()
+  }, []);
 
   return (
     <Watermark content='test water mark'>
