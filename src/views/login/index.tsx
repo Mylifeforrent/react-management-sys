@@ -8,6 +8,7 @@ import loginAPI from '@/api/index';
 import { LoginType } from "@/types/api"
 import storage from "@/utils/storage";
 import * as CryptoJS from 'crypto-js'; // 用于密码加密
+import {store} from '@/store'
 
 
 export default function Login() {
@@ -33,7 +34,7 @@ export default function Login() {
    * 防止重放攻击
    */
   const generateNonce = (): string => {
-    return Math.random().toString(36).substring(2, 15) + 
+    return Math.random().toString(36).substring(2, 15) +
            Math.random().toString(36).substring(2, 15);
   };
 
@@ -63,41 +64,43 @@ export default function Login() {
 
       // 🔒 安全优化3：清除原始密码变量
       values.password = ''; // 立即清除内存中的明文密码
-      
+
       // 调用登录API并明确指定返回类型
       const loginResult = await loginAPI.login(secureLoginParams) as LoginType.LoginResponseData;
       console.log('登录结果:', loginResult);
-      
+
       // 🔒 安全优化4：安全存储token
       if (loginResult && loginResult.token) {
-        storage.set('token', loginResult.token);
-        storage.set('userInfo', {
-          username: loginResult.user?.username,
-          role: loginResult.user?.role,
-          id: loginResult.user?.id
-        });
+        // storage.set('token', loginResult.token);
+        store.token = loginResult.token;
+        // storage.set('userInfo', {
+        //   username: loginResult.user?.username,
+        //   role: loginResult.user?.role,
+        //   id: loginResult.user?.id
+        // });
       }
-      
+
       message.success('登录成功');
-       
+
       // 使用URLSearchParams解析当前页面URL中的查询参数
       // 原理：URLSearchParams是Web API，用于解析和操作URL查询字符串
       // 例如：如果当前URL是 /login?callback=/dashboard，则location.search为 "?callback=/dashboard"
       const params = new URLSearchParams(location.search);
-      
+
       // 获取callback参数并重定向，实现登录后跳转到指定页面的功能
       // 原理：params.get('callback')获取callback参数值，如果没有则使用默认值'/'
       // 例如：callback=/dashboard 则跳转到/dashboard，没有callback则跳转到首页/
       // 使用场景：用户访问受保护页面时被重定向到登录页，登录成功后自动跳转回原页面
-      
+
       // 🔒 安全优化5：验证callback参数，防止开放重定向攻击
       const callbackUrl = params.get('callback');
       const safeCallback = validateCallback(callbackUrl);
-      
+
       setTimeout(() => {
-        location.href = safeCallback;
+        // location.href = safeCallback;
+        location.href = callbackUrl||'';
       }, 2000); // 延迟跳转，让用户看到成功提示
-      
+
     } catch (error) {
       console.error('登录失败:', error);
       message.error('登录失败，请检查用户名和密码');
@@ -113,18 +116,19 @@ export default function Login() {
    */
   const validateCallback = (callback: string | null): string => {
     if (!callback) return '/';
-    
+
     // 只允许相对路径，防止重定向到外部恶意网站
     if (callback.startsWith('/') && !callback.startsWith('//')) {
       // 白名单验证：只允许特定的路径
       const allowedPaths = ['/', '/dashboard', '/users', '/settings', '/profile'];
-      const isAllowed = allowedPaths.some(path => 
+      const isAllowed = allowedPaths.some(path =>
         callback === path || callback.startsWith(path + '/')
       );
-      
+
       return isAllowed ? callback : '/';
     }
-    
+
+    // return '/'; // 默认返回首页
     return '/'; // 默认返回首页
   };
 

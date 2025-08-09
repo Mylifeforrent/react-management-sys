@@ -28,7 +28,7 @@ instance.interceptors.request.use(
   config => {
     // 显示全局加载状态
     if (config.showLoading) {
-      showLoading() 
+      showLoading()
     }
 
     // 自动添加用户认证 token
@@ -72,7 +72,7 @@ instance.interceptors.response.use(
 
     // 处理不同类型的错误
     let errorMessage = '请求失败'
-    
+
     if (error.response) {
       // 服务器返回了错误状态码
       const status = error.response.status
@@ -114,7 +114,7 @@ instance.interceptors.response.use(
  */
 function handleResponseData(response: any) {
   console.log('handleResponseData response:', response)
-  
+
   // 获取响应数据
   const data = response.data
 

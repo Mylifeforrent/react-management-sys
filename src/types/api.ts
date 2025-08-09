@@ -54,19 +54,18 @@ export namespace User {
     state?: number
   }
   export interface UserItem {
-    _id: string
+    id: number
     userId: number
     userName: string
-    userEmail: string
-    deptId: string
-    state: number
-    mobile: string
-    job: string
-    role: number
-    roleList: string
-    createId: number
-    deptName: string
-    userImg: string
+    email: string
+    realName: string
+    phone: string
+    role: string
+    status: string
+    avatar: string
+    lastLogin: string
+    createTime: string
+    updateTime: string
   }
   export interface CreateParams {
     userName: string

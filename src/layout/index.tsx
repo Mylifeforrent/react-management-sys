@@ -8,6 +8,7 @@ import { Outlet } from 'react-router-dom';
 import styles from "./index.module.less"
 import api from '@/api'
 import storage from '@/utils/storage';
+import {store} from '@/store'
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -27,9 +28,16 @@ const App: React.FC = () => {
   // 这样单独定义一下才可以在useeffect里面getpromiase，不然直接
   //在useeffect使用api。getuserinfo是会报错的，没办法使用promise语法
   const getUserInfo = async () => {
-    const data = await api.getUserInfo(); 
-    storage.set("userinfo" ,data)
-    console.log("userInfo:" + data);
+    const data = await api.getUserInfo();
+    // 现在后端返回的是驼峰命名，直接使用即可
+    store.userInfo = {
+      username: data.userName,
+      role: data.role,
+      id: data.userId
+    }
+    // storage.set("userinfo" ,data)
+    console.log("userInfo:", data);
+    console.log("store.userInfo:", store.userInfo);
   };
 
   useEffect(() => {

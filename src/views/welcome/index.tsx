@@ -3,6 +3,8 @@ import { showLoading } from "@/utils/loading";
 import request from '@/utils/request'
 import { Button } from "antd";
 import styles from "./index.module.less"
+import { store } from "@/store";
+import { useState } from "react";
 
 /**
  * 处理测试按钮点击事件
@@ -21,13 +23,13 @@ console.log(import.meta.env)
 /**
  * 欢迎页面组件
  * 包含一个测试按钮，用于验证 API 请求功能
- * 
+ *
  * 登录以后在首页获取用户信息，
- * 1.为什么不是登录接口获取用户信息？ 
+ * 1.为什么不是登录接口获取用户信息？
  * 答：如果这样，在使用redux状态框架的时候页面刷新用户信息可能丢失
- * 1.1 使用redux时候，那我们可以把获取到的数据用storage存储起来啊？ 
+ * 1.1 使用redux时候，那我们可以把获取到的数据用storage存储起来啊？
  * 答： 如果有人在storage改动了数据，把你的用户名，菜单权限列表进行改动，可能出现安全漏洞，我们又无法控制，这样是不行的。
- * 
+ *
  * 所以需要在用户信息接口单独获取一次，也就是首页里面拉取。一定要把这个接口触发放到公共组件（header，footer，sidemenu）里面去，刷新的时候才会进行触发
  * 这里我们选择layout组件里面去
  */
@@ -42,9 +44,11 @@ export default function Welcome() {
         <div className={styles.title}>React18 General Management Sys</div>
         <div className={styles.desc}>React18+ReactRouter6.0+AntD5.4+TypeScript5.0+Vite</div>
       </div>
-      <div className={styles.img}>
-
-      </div>
+      <div className={styles.img}/>
+      <button onClick={()=>{
+          store.inc()
+      }}>click for resso etest</button>
+      <span>{store.count}</span>
     </div>
   );
 }

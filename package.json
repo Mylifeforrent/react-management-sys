@@ -23,6 +23,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.0.0",
+    "resso": "^0.23.0",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
